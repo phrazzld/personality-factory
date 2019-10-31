@@ -10,6 +10,7 @@ const path = require('path');
 
 // Always wear a helmet
 app.use(helmet());
+/*
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -17,6 +18,7 @@ app.use(
     },
   }),
 );
+*/
 app.use(helmet.permittedCrossDomainPolicies());
 app.use(
   helmet.featurePolicy({
