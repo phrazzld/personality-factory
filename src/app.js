@@ -9,8 +9,8 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 // Always wear a helmet
-app.use(helmet());
 /*
+app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -18,7 +18,6 @@ app.use(
     },
   }),
 );
-*/
 app.use(helmet.permittedCrossDomainPolicies());
 app.use(
   helmet.featurePolicy({
@@ -33,6 +32,7 @@ app.use(
     },
   }),
 );
+*/
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
