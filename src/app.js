@@ -48,4 +48,10 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/signup', (req, res) => {
+  res.render('signup', {
+    title: 'Signup',
+  });
+});
+
 module.exports = app;
