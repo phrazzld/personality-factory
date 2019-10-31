@@ -54,4 +54,19 @@ app.get('/signup', (req, res) => {
   });
 });
 
+app.get('/auth-success', (req, res) => {
+  console.log('Auth success!');
+  res.redirect('/');
+});
+
+app.get('/terms-of-service', (req, res) => {
+  console.log('Terms of Service below');
+  res.redirect('/');
+});
+
+app.get('/privacy-policy', (req, res) => {
+  console.log('Privacy policy here');
+  res.redirect('/');
+});
+
 module.exports = app;
