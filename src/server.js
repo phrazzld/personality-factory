@@ -2,8 +2,8 @@
 
 require('module-alias/register');
 const app = require('@root/app');
-const firebase = require('firebase');
-const firebaseui = require('firebaseui');
+//const firebase = require('firebase');
+//const firebaseui = require('firebaseui');
 const config = require('@root/config');
 
 app.listen(config.port, err => {
