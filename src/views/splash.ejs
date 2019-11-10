@@ -35,21 +35,29 @@
             firebase.initializeApp(firebaseConfig);
             const auth = firebase.auth()
             const db = firebase.firestore()
+            // Keep Firebase user session in sync
+            auth.onAuthStateChanged(user => {
+                console.log("Auth state changed.")
+                window.user = user
+                if (user) {
+                    console.log("User logged in.")
+                    console.log(user)
+                } else {
+                    console.log("User logged out.")
+                }
+            })
             // login
             const login = document.querySelector('#login-button')
             login.addEventListener('click', e => {
                 e.preventDefault()
-                const provider = new firebase.auth.GoogleAuthProvider()
-                firebase.auth().signInWithPopup(provider).then(result => {
-                    const token = result.credential.accessToken
-                    const user = result.user
-                    console.log("token:")
-                    console.log(token)
-                    console.log("user:")
-                    console.log(user)
-                }).catch(err => {
-                    console.error(err)
-                })
+                auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                    .then(() => {
+                        const provider = new firebase.auth.GoogleAuthProvider()
+                        return firebase.auth().signInWithPopup(provider)
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
             })
         </script>
     </body>

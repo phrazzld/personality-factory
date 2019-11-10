@@ -8,104 +8,61 @@
         <title><%= title %></title>
     </head>
     <body>
-        <div id="cover-container">
-            <img id="cover" class="responsive-img" src="/images/cover.png">
-        </div>
 
         <div class="container">
 
-            <div id='nav'>
-                <ul id='sitemap'>
-                    <li><a href='/'>Home</a></li>
-                    <li class="logged-in">
-                        <a href="/account">Account</a>
-                    </li>
-                    <li class="logged-in">
-                        <a href="/logout" id="logout">Logout</a>
-                    </li>
-                    <li class="logged-out">
-                        <a id="login" href="#">Login</a>
-                    </li>
-                </ul>
-            </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="/" class="brand-logo">Personality Factory</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="account">Account</a></li>
+                        <li><a id="logout" href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
 
-        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-        <script>
-            var firebaseConfig = {
-                apiKey: "AIzaSyAlt4taos_UOZxTR6wQGFQ4th-Aj2CYDuw",
-                authDomain: "personality-factory.firebaseapp.com",
-                databaseURL: "https://personality-factory.firebaseio.com",
-                projectId: "personality-factory"
-            };
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-            const auth = firebase.auth()
-            const db = firebase.firestore()
-        </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-        <!-- CUSTOM AUTH JS -->
-        <script type="text/javascript">
-            document.addEventListener('DOMContentLoaded', function() {
-                const modals = document.querySelectorAll('.modal')
-                M.Modal.init(modals)
-            })
+            <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+            <script>
+                var firebaseConfig = {
+                    apiKey: "AIzaSyAlt4taos_UOZxTR6wQGFQ4th-Aj2CYDuw",
+                    authDomain: "personality-factory.firebaseapp.com",
+                    databaseURL: "https://personality-factory.firebaseio.com",
+                    projectId: "personality-factory"
+                };
+                // Initialize Firebase
+                firebase.initializeApp(firebaseConfig);
+                const auth = firebase.auth()
+                const db = firebase.firestore()
+            </script>
 
-            const loggedOutLinks = document.querySelectorAll('.logged-out')
-            const loggedInLinks = document.querySelectorAll('.logged-in')
-            const accountDetails = document.querySelector('.account-details')
-
-            const setUpUI = user => {
-                if (user) {
-                    const html = `
-                        <div>Logged in as ${user.email}</div>
-                    `
-                    accountDetails.innerHTML = html
-                    loggedInLinks.forEach(link => { link.style.display = 'block' })
-                    loggedOutLinks.forEach(link => { link.style.display = 'none' })
-                } else {
-                    accountDetails.innerHTML = ''
-                    loggedInLinks.forEach(link => { link.style.display = 'none' })
-                    loggedOutLinks.forEach(link => { link.style.display = 'block' })
+            <!-- CUSTOM AUTH JS -->
+            <script type="text/javascript">
+                const setUpUI = user => {
+                    if (user) {
+                        console.log('User logged in.')
+                    } else {
+                        console.log('User logged out.')
+                    }
                 }
-            }
 
-            // listen for auth status changes
-            auth.onAuthStateChanged(user => {
-                console.log("Auth state changed. User:\n", user)
-                setUpUI(user)
-                if (user) {
-                    console.log("User logged in.")
-                } else {
-                    console.log("User logged out.")
-                }
-            })
-
-            // logout
-            const logout = document.querySelector('#logout')
-            logout.addEventListener('click', e => {
-                e.preventDefault()
-                auth.signOut().then(() => {
-                    console.log("User signed out.")
+                // listen for auth status changes
+                auth.onAuthStateChanged(user => {
+                    console.log("Auth state changed.")
+                    window.user = user
+                    setUpUI(user)
                 })
-            })
 
-            // login
-            const login = document.querySelector('#login')
-            login.addEventListener('click', e => {
-                e.preventDefault()
-                const provider = new firebase.auth.GoogleAuthProvider()
-                firebase.auth().signInWithPopup(provider).then(result => {
-                    const token = result.credential.accessToken
-                    const user = result.user
-                    console.log("token:")
-                    console.log(token)
-                    console.log("user:")
-                    console.log(user)
-                }).catch(err => {
-                    console.error(err)
+                // logout
+                const logout = document.querySelector('#logout')
+                logout.addEventListener('click', e => {
+                    e.preventDefault()
+                    auth.signOut().then(() => {
+                        console.log("User signed out.")
+                        window.location.replace('/splash')
+                    })
                 })
-            })
-        </script>
+            </script>

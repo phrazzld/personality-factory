@@ -29,9 +29,30 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-  res.render('splash', {
-    //res.render('home', {
+  console.log('GET /');
+  // TODO: render splash if logged out, account if logged in
+  res.render('home', {
     title: 'Personality Factory',
+  });
+});
+
+app.get('/splash', (req, res) => {
+  console.log('GET /splash');
+  res.render('splash', {
+    title: 'Splash',
+  });
+});
+
+// TODO: Manage user object more intentionally
+app.post('/login', (req, res) => {
+  console.log('POST /login');
+  res.redirect('/');
+});
+
+app.get('/account', (req, res) => {
+  console.log('GET /account');
+  res.render('account', {
+    title: 'Account',
   });
 });
 
