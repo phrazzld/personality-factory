@@ -1,0 +1,27 @@
+<%- include('header') %>
+
+<h1>Account Details</h1>
+<div id="account-details"></div>
+
+<!-- CUSTOM AUTH JS -->
+<script type="text/javascript">
+    // listen for auth status changes
+    auth.onAuthStateChanged(user => {
+        console.log("Auth state changed")
+        window.user = user
+        if (user) {
+            const accountDetails = document.querySelector('#account-details')
+            const user = window.user
+            const { displayName, email } = user
+            const html = `
+                <p>Name: ${displayName}</p>
+                <p>Email: ${email}</p>
+            `
+            accountDetails.innerHTML = html
+        } else {
+            window.location.replace('/splash')
+        }
+    })
+</script>
+
+<%- include('footer') %>

@@ -1,0 +1,63 @@
+/* personality-factory/src/public/css/style.css */
+
+:root {
+  --color-primary: #e39e5a;
+  --color-accent: #fcf4ed;
+  --color-compliment-a: #9e5ae3;
+  --color-compliment-b: #5ae3e1;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-accent);
+}
+
+.container {
+  background-color: #ffffff;
+  height: 100%;
+}
+
+/*
+.logged-in,
+.logged-out {
+  display: none;
+}
+*/
+
+#cover {
+  max-height: 130px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#cover-container {
+  background-color: var(--color-accent);
+  width: 100%;
+}
+
+#splash-container {
+  position: relative;
+  width: 100%;
+}
+
+#splash {
+  width: 100%;
+  height: auto;
+}
+
+#login-button {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  -ms-transform: translate(-50%, -80%);
+  background-color: var(--color-compliment-a);
+}
+
+.nav-wrapper {
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: var(--color-primary);
+}

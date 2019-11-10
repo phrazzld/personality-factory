@@ -3,70 +3,57 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
+const config = require('@root/config');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const path = require('path');
 
 // Always wear a helmet
-/*
 app.use(helmet());
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-    },
-  }),
-);
-app.use(helmet.permittedCrossDomainPolicies());
-app.use(
-  helmet.featurePolicy({
-    features: {
-      vibrate: ["'none'"],
-      payment: ["'none'"],
-      syncXhr: ["'none'"],
-      notifications: ["'none'"],
-      microphone: ["'none'"],
-      camera: ["'none'"],
-      geolocation: ["'none'"],
-    },
-  }),
-);
-*/
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(cookieParser());
+app.use(
+  session({
+    secret: config.sessionSecret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {},
+  }),
+);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
+  console.log('GET /');
+  // TODO: render splash if logged out, account if logged in
   res.render('home', {
     title: 'Personality Factory',
   });
 });
 
-app.get('/signup', (req, res) => {
-  res.render('signup', {
-    title: 'Signup',
+app.get('/splash', (req, res) => {
+  console.log('GET /splash');
+  res.render('splash', {
+    title: 'Splash',
   });
 });
 
-app.get('/auth-success', (req, res) => {
-  console.log('Auth success!');
+// TODO: Manage user object more intentionally
+app.post('/login', (req, res) => {
+  console.log('POST /login');
   res.redirect('/');
 });
 
-app.get('/terms-of-service', (req, res) => {
-  console.log('Terms of Service below');
-  res.redirect('/');
-});
-
-app.get('/privacy-policy', (req, res) => {
-  console.log('Privacy policy here');
-  res.redirect('/');
+app.get('/account', (req, res) => {
+  console.log('GET /account');
+  res.render('account', {
+    title: 'Account',
+  });
 });
 
 module.exports = app;
