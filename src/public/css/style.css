@@ -1,0 +1,48 @@
+/* haircut/src/public/css/style.css */
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  background-color: #ffffff;
+  height: 100%;
+}
+
+/*
+.logged-in,
+.logged-out {
+  display: none;
+}
+*/
+
+#cover {
+  max-height: 130px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#cover-container {
+  background-color: #ff3435;
+  width: 100%;
+}
+
+#splash-container {
+  position: relative;
+  width: 100%;
+}
+
+#splash {
+  width: 100%;
+  height: auto;
+}
+
+#login-button {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -75%);
+  -ms-transform: translate(-50%, -75%);
+}
