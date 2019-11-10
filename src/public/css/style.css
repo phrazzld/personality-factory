@@ -1,8 +1,16 @@
-/* haircut/src/public/css/style.css */
+/* personality-factory/src/public/css/style.css */
+
+:root {
+  --color-primary: #e39e5a;
+  --color-accent: #fcf4ed;
+  --color-compliment-a: #9e5ae3;
+  --color-compliment-b: #5ae3e1;
+}
 
 body {
   height: 100%;
   width: 100%;
+  background-color: var(--color-accent);
 }
 
 .container {
@@ -25,7 +33,7 @@ body {
 }
 
 #cover-container {
-  background-color: #ff3435;
+  background-color: var(--color-accent);
   width: 100%;
 }
 
@@ -41,8 +49,9 @@ body {
 
 #login-button {
   position: absolute;
-  top: 75%;
+  top: 80%;
   left: 50%;
-  transform: translate(-50%, -75%);
-  -ms-transform: translate(-50%, -75%);
+  transform: translate(-50%, -80%);
+  -ms-transform: translate(-50%, -80%);
+  background-color: var(--color-compliment-a);
 }
